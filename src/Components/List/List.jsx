@@ -2,10 +2,9 @@ import { React } from "react";
 import "./List.scss";
 
 export default function List(props) {
-    
-    const { name, surname, phone, handleDelete } = props;
+    const { name, surname, phone, handleDelete, id } = props;
     return (
-        <div className="main">
+        <div className="main" id={id}>
             <div className="name">
                 <p>{name}</p>
             </div>
@@ -16,7 +15,9 @@ export default function List(props) {
                 <p>{phone}</p>
             </div>
             <div className="action">
-                <button type="button" className="btnAdd" onClick={handleDelete}>Delete</button>
+                <button type="button" className="btnAdd" onClick={handleDelete}>
+                    Delete
+                </button>
             </div>
         </div>
     );

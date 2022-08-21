@@ -4,6 +4,9 @@
 body {
     margin: 0;
 }
+.visible {
+    filter: blur(4px);
+}
 .App {
     position: absolute;
     top: 50%;

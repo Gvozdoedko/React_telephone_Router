@@ -2,7 +2,8 @@
 import { useState, useEffect } from "react";
 import "./App.scss";
 import List from "./Components/List/List";
-import Button from './Components/Button/Button'
+import Button from "./Components/Button/Button";
+import Form from './Components/form/Form'
 
 export default function App() {
     const [data, setData] = useState([]);
@@ -14,22 +15,20 @@ export default function App() {
     }, []);
 
     useEffect(() => {
-        if(!page === true) {
+        if (!page === true) {
             console.log(`it's next page`);
         }
-    }, [page])
-    const handleClick = () => {
-        setPage(false);
+    }, [page]);
+    const handleClick = (value) => {
+        setPage(!value);
         console.log(page);
-    }
+        document.querySelector('.info_section').classList.add('visible')
+    };
     const handleDelete = (e) => {
         let target = e.target;
         target.parentElement.parentElement.remove()
-        console.log(target.parentElement.parentElement);
-    }
-
-    
-
+        console.log(target.parentElement.parentElement.id);
+    };
 
     return (
         <div className="App">
@@ -50,15 +49,18 @@ export default function App() {
                 </div>
                 {data.map((item, i) => (
                     <List
+                        id={i}
                         key={i}
-                        name={item.name.split(' ')[0]}
-                        surname={item.name.split(' ')[1]}
+                        name={item.name.split(" ")[0]}
+                        surname={item.name.split(" ")[1]}
                         phone={item.phone}
                         handleDelete={handleDelete}
                     ></List>
                 ))}
             </div>
             <Button onClick={handleClick}></Button>
+            {!page ? <Form setPage={page} handleClick={handleClick}></Form> : '' }
+            {/* <Form></Form> */}
         </div>
     );
 }

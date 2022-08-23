@@ -16,7 +16,7 @@ export default function App() {
     }, []);
     function random(min, max) {
         return min + Math.random() * (max - min);
-      }
+    }
 
     useEffect(() => {
         if (!page === true) {
@@ -34,16 +34,15 @@ export default function App() {
         target.parentElement.parentElement.remove();
         console.log(target.parentElement.parentElement.id);
     };
-    
 
     const updateData = (value) => {
-        let x = random(100, 10000)
+        let x = random(100, 10000);
+        console.log(value);
         setUserData(() => ({
             id: x,
             name: value.name,
-            // phone: value.phone,
-        }))
-        // console.log(value.name);
+            phone: value.phone,
+        }));
     };
 
     return (
@@ -73,6 +72,18 @@ export default function App() {
                         handleDelete={handleDelete}
                     ></List>
                 ))}
+                {userData ? (
+                    <List
+                        id={userData.id}
+                        key={userData.id}
+                        name={userData.name.split(" ")[0]}
+                        surname={userData.name.split(" ")[1]}
+                        phone={userData.phone}
+                        handleDelete={handleDelete}
+                    ></List>
+                ) : (
+                    ""
+                )}
             </div>
             <Button onClick={handleClick}></Button>
             {!page ? (
@@ -84,7 +95,6 @@ export default function App() {
             ) : (
                 ""
             )}
-            {/* {userData ? <List id={userData.id} key={userData.id} ></List> : ''} */}
         </div>
     );
 }

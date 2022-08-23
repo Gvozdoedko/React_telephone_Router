@@ -4,7 +4,7 @@ import { useState } from "react";
 import "./Form.scss";
 
 export default function Form(props) {
-    const [fullData, setFullData] = useState();
+    const [fullData, setFullData] = useState("");
     const [name, setName] = useState();
     const [surname, setSurname] = useState();
     const [phone, setPhone] = useState();
@@ -14,7 +14,7 @@ export default function Form(props) {
         handleClick(false);
         document.querySelector(".info_section").classList.remove("visible");
     };
-    
+
     const handleName = (e) => {
         let target = e.target.value;
         setName(target);
@@ -36,14 +36,17 @@ export default function Form(props) {
     };
     const handleSave = () => {
         setFullData(() => ({
-            name: name + ' ' + surname,
-            phone: phone
-        }))
-        
-    }
+            name: name + " " + surname,
+            phone: phone,
+        }));
+    };
     useEffect(() => {
-        updateData(fullData);
-    }, [fullData])
+        if (Object.keys(fullData).length !== 0) {
+            updateData(fullData);
+            handleClick(false);
+            document.querySelector(".info_section").classList.remove("visible");
+        }
+    }, [fullData]);
 
     return (
         <div className="form ">
@@ -70,7 +73,7 @@ export default function Form(props) {
                     ></input>
                 </label>
                 <div className="btn">
-                    <button type="button" onClick={handleSave} >
+                    <button type="button" onClick={handleSave}>
                         SAVE
                     </button>
                     <button type="button" onClick={handleCancel}>

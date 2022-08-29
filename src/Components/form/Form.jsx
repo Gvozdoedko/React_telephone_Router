@@ -20,7 +20,7 @@ export default function Form(props) {
         setName(target);
     };
     useEffect(() => {
-        console.log(name);
+        console.log(typeof name);
         console.log(surname);
         console.log(phone);
         console.log(fullData);
@@ -35,10 +35,13 @@ export default function Form(props) {
         setPhone(target);
     };
     const handleSave = () => {
-        setFullData(() => ({
-            name: name + " " + surname,
-            phone: phone,
-        }));
+        if (typeof name !== "undefined" && typeof surname !== "undefined" && typeof phone !== "undefined") {
+            setFullData(() => ({
+                name: name + " " + surname,
+                phone: phone,
+            }));
+        } 
+        
     };
     useEffect(() => {
         if (Object.keys(fullData).length !== 0) {

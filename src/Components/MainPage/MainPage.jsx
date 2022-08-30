@@ -3,11 +3,11 @@ import { useState, useEffect } from "react";
 import List from "../List/List";
 import Button from "../Button/Button";
 import Form from "../form/Form";
-import db from "../db.json";
-export default function MainPage() {
+export default function MainPage(props) {
+    const { saveData, saveUserData } = props;
     const [data, setData] = useState([]);
     const [page, setPage] = useState(true);
-    const [userData, setUserData] = useState();
+    const [userData, setUserData] = useState('');
     useEffect(() => {
         fetch(`https://jsonplaceholder.typicode.com/users`)
             .then((response) => response.json())
@@ -18,19 +18,13 @@ export default function MainPage() {
     }
 
     useEffect(() => {
-        let newItem = {};
-        let result = [];
-        data.map((item, i) => {
-            newItem.name = item.name;
-            newItem.phone = item.phone;
-            newItem.id = item.id;
-            result.push(JSON.stringify({name: item.name, phone: item.phone, id: item.id}));
-            
-        });
-        db.push(result[1]);
-        
-        console.log(db);
-    }, [data]);
+        if (Object.keys(data).length !== 0) {
+            saveData(data);
+        }
+        if (Object.keys(userData).length !== 0) {
+            saveUserData(userData);
+        }
+    }, [data, userData]);
 
     useEffect(() => {
         if (!page === true) {

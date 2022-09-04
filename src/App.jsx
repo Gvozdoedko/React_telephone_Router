@@ -13,17 +13,20 @@ export default function App() {
 
     const saveData = (data) => {
         setNewData(data);
+        console.log(data);
     };
     const saveUserData = (data) => {
         console.log(data);
-        if (data !== "undefined") {
-            setNewUserData([data]);
+        if (data !== undefined) {
+            setNewUserData(data);
         }
     };
     useEffect(() => {
         console.log(newData);
         console.log(newUserData);
     }, [newData, newUserData]);
+
+    
     return (
         <div className="App">
             <Routes>
